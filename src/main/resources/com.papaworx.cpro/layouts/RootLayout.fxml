@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="bg" prefHeight="680.0" prefWidth="1000.0"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.papaworx.cpro.controllers.RootLayoutController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+            <Menu fx:id="miExit" mnemonicParsing="false" onAction="#initialize" text="Exit">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Close" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem fx:id="miPrintAscending" mnemonicParsing="false" text="Print Ascending" />
+                  <MenuItem fx:id="miPrintDescending" mnemonicParsing="false" text="Print Descending" />
+                  <MenuItem fx:id="miExportGEDCOM" mnemonicParsing="false" text="Export GEDCOM" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Find">
+              <items>
+                <MenuItem fx:id="miFindByName" mnemonicParsing="false" text="by Name" />
+                  <MenuItem fx:id="miFindByID" mnemonicParsing="false" text="by ID" />
+                  <MenuItem fx:id="miFindByYear" mnemonicParsing="false" text="by Year" />
+                  <MenuItem fx:id="miFindByPlace" mnemonicParsing="false" text="by Place" />
+                  <MenuItem fx:id="miFindHolocaust" mnemonicParsing="false" text="Holocaust" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="View">
+              <items>
+                  <MenuItem fx:id="miAscendingTree" mnemonicParsing="false" text="Ascending Tree" />
+                <MenuItem fx:id="miDescendingTree" mnemonicParsing="false" text="Descending Tree" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <Menu mnemonicParsing="false" text="People">
+                    <items>
+                        <MenuItem fx:id="miSavePerson" mnemonicParsing="false" text="Save Person" />
+                        <MenuItem fx:id="miAddPerson" mnemonicParsing="false" text="Add Person" />
+                        <MenuItem fx:id="miAddDaughter" mnemonicParsing="false" text="Add daughter" />
+                        <MenuItem fx:id="miAddSon" mnemonicParsing="false" text="Add son" />
+                        <MenuItem fx:id="miAddSister" mnemonicParsing="false" text="Add sister" />
+                        <MenuItem fx:id="miAddBrother" mnemonicParsing="false" text="Add brother" />
+                        <MenuItem fx:id="miAddMother" mnemonicParsing="false" text="Add mother" />
+                        <MenuItem fx:id="miAddFather" mnemonicParsing="false" text="Add father" />
+                        <MenuItem fx:id="miAddSpouse" mnemonicParsing="false" text="Add spouse" />
+                        <MenuItem fx:id="miUnlinkPresent" mnemonicParsing="false" text="Unlink present" />
+                      <MenuItem fx:id="miDeletePresent" mnemonicParsing="false" text="Delete present" />
+                    </items>
+                  </Menu>
+                  <MenuItem fx:id="miAddDocument" mnemonicParsing="false" text="Documents" />
+               </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Tools">
+              <items>
+                <MenuItem fx:id="miService" mnemonicParsing="false" text="Preferences" />
+                  <MenuItem fx:id="miFixSex" mnemonicParsing="false" text="Fix Gender" />
+                  <MenuItem fx:id="miTestParents" mnemonicParsing="false" text="Diagnostics" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

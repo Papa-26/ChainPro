@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="509.0" prefWidth="507.0"
+            xmlns="http://javafx.com/javafx/8.0.40"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.papaworx.cpro.controllers.DocumentViewController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="miFileSearch" mnemonicParsing="false" text="Find in Computer" />
+                  <MenuItem fx:id="miInternalFileSearch" mnemonicParsing="false" text="Find existing" />
+                  <MenuItem fx:id="miSaveDoc" mnemonicParsing="false" text="Save for Person" />
+                  <MenuItem fx:id="miSaveGlobal" mnemonicParsing="false" text="Save Global" />
+                  <MenuItem fx:id="miDelete" mnemonicParsing="false" text="Delete" />
+              <MenuItem fx:id="miCancel" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="5.0" layoutY="110.0" text="Comment">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="5.0" layoutY="50.0" text="Title">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="7.0" layoutY="80.0" text="Filename / URL">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="title" layoutX="144.0" layoutY="48.0" prefHeight="31.0" prefWidth="352.0" promptText="enter a title or select a document" />
+      <TextField fx:id="fileName" layoutX="144.0" layoutY="78.0" prefHeight="31.0" prefWidth="352.0" promptText="select a file with 'File open'" />
+      <TextArea fx:id="comment" layoutX="144.0" layoutY="110.0" prefHeight="190.0" prefWidth="352.0" promptText="enter comments here" />
+      <Label layoutX="5.0" layoutY="300.0" text="Select">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="5.0" text="Document Editor">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ListView fx:id="selector" layoutX="144.0" layoutY="300.0" prefHeight="200.0" prefWidth="352.0" />
+   </children>
+</AnchorPane>

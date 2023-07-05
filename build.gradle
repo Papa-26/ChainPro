@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.beryx.jlink' version '2.25.0'
+}
+
+group 'com.papaworx'
+version '2.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'com.papaworx.cpro'
+    mainClass = 'com.papaworx.cpro.MainClass'
+}
+
+javafx {
+    version = '17.0.6'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media']
+}
+
+dependencies {
+    implementation('org.controlsfx:controlsfx:11.1.2')
+    implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+// https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jlink {
+    launcher {
+        name = 'ChainPro'
+    }
+    jpackage {
+        installerOptions = [
+                '--description', 'Genealogical Database manager',
+                '--copyright', 'Copyright 2007-2023 papaworx.com'
+        ]
+        skipInstaller = false
+        vendor = "Open Source"
+
+        //un-comment appropriate installerType
+
+
+            installerType = "deb"
+            imageOptions += ['--icon', 'src/main/resources/com.papaworx.cpro/chain.png']
+            installerOptions += [
+                '--linux-deb-maintainer', 'ralph@papaworx.com'
+            ]
+
+
+        /*
+            installerType = "msi"
+            imageOptions += ['--icon', 'src/main/resources/org/gsusers/gsmv/GS_MV.ico']
+            installerOptions += [
+                '--win-menu',
+                '--win-shortcut'
+            ]
+        */
+
+        /*
+            installerType = "dmg"
+            imageOptions += ['--icon', 'src/main/resources/org/gsusers/gsmv/GS_MV.icns']
+        */
+    }
+}

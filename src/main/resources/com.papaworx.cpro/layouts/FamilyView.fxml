@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="410.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.papaworx.cpro.controllers.FamilyViewController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Return">
+               <items>
+                  <MenuItem fx:id="saveMenu" mnemonicParsing="false" text="Save" />
+                  <MenuItem fx:id="cancelMenu" mnemonicParsing="false" text="Cancel" />
+               </items></Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="13.0" layoutY="50.0" text="Spouse_a" />
+      <Label layoutX="13.0" layoutY="80.0" text="Spouse_b" />
+      <Label layoutX="13.0" layoutY="110.0" text="Children" />
+      <Label layoutX="13.0" layoutY="372.0" text="Divorce" />
+      <Label layoutX="13.0" layoutY="342.0" text="Separation" />
+      <Label layoutX="13.0" layoutY="312.0" text="Marriage" />
+      <Label layoutX="13.0" layoutY="282.0" text="Engagement" />
+      <TextField fx:id="spouse_aField" layoutX="121.0" layoutY="45.0" prefHeight="31.0" prefWidth="248.0" />
+      <TextField fx:id="spouse_bField" layoutX="121.0" layoutY="75.0" prefHeight="31.0" prefWidth="248.0" />
+      <ListView fx:id="childrenListView" layoutX="121.0" layoutY="110.0" prefHeight="134.0" prefWidth="138.0" />
+      <TextArea fx:id="remarksArea" layoutX="268.0" layoutY="110.0" prefHeight="134.0" prefWidth="219.0" />
+      <TextField fx:id="engagementDateField" layoutX="121.0" layoutY="277.0" prefHeight="31.0" prefWidth="138.0" />
+      <TextField fx:id="marriageDateField" layoutX="121.0" layoutY="307.0" prefHeight="31.0" prefWidth="138.0" />
+      <TextField fx:id="separationDateField" layoutX="121.0" layoutY="337.0" prefHeight="31.0" prefWidth="138.0" />
+      <TextField fx:id="divorceDateField" layoutX="121.0" layoutY="367.0" prefHeight="31.0" prefWidth="138.0" />
+      <TextField fx:id="engagementPlaceField" layoutX="268.0" layoutY="277.0" prefHeight="31.0" prefWidth="219.0" />
+      <TextField fx:id="marriagePlaceField" layoutX="268.0" layoutY="307.0" prefHeight="31.0" prefWidth="219.0" />
+      <TextField fx:id="separationPlaceField" layoutX="268.0" layoutY="337.0" prefHeight="31.0" prefWidth="219.0" />
+      <TextField fx:id="divorcePlaceField" layoutX="268.0" layoutY="367.0" prefHeight="31.0" prefWidth="219.0" />
+      <Label layoutX="199.0" layoutY="10.0" text="Family:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="familyIDField" layoutX="268.0" layoutY="8.0" prefHeight="31.0" prefWidth="101.0" />
+   </children>
+</AnchorPane>

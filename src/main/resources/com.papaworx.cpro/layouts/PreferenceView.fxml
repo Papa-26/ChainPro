@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane minHeight="210.0" prefHeight="335.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.papaworx.cpro.controllers.PreferenceViewController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="miSave" mnemonicParsing="false" text="Save" />
+                  <MenuItem fx:id="miCancel" mnemonicParsing="false" text="Cancel" />
+                  <MenuItem fx:id="miExit" mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem fx:id="miDepositLocation" mnemonicParsing="false" text="Deposit" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="7.0" layoutY="47.0" prefHeight="21.0" prefWidth="153.0" text="DB_URL" />
+      <Label layoutX="6.0" layoutY="110.0" text="Password" />
+      <Label layoutX="10.0" layoutY="142.0" text="Document Deposit" />
+      <Label layoutX="8.0" layoutY="79.0" text="User" />
+      <Label layoutX="7.0" layoutY="173.0" text="Start Person" />
+      <TextField fx:id="db_url" layoutX="160.0" layoutY="42.0" prefHeight="31.0" prefWidth="431.0" />
+      <TextField fx:id="user" layoutX="160.0" layoutY="74.0" prefHeight="31.0" prefWidth="431.0" />
+      <TextField fx:id="pass" layoutX="160.0" layoutY="105.0" prefHeight="31.0" prefWidth="431.0" />
+      <TextField fx:id="deposit" layoutX="160.0" layoutY="137.0" prefHeight="31.0" prefWidth="431.0" />
+      <TextField fx:id="startPerson" layoutX="160.0" layoutY="168.0" prefHeight="31.0" prefWidth="431.0" />
+      <TextField fx:id="cutoff" layoutX="160.0" layoutY="199.0" prefHeight="31.0" prefWidth="431.0" />
+      <Label layoutX="6.0" layoutY="204.0" text="Cutoff Year" />
+      <Label layoutX="7.0" layoutY="235.0" prefHeight="21.0" prefWidth="97.0" text="Image Viewer" />
+      <TextField fx:id="imageViewer" layoutX="160.0" layoutY="230.0" prefHeight="31.0" prefWidth="431.0" />
+      <TextField fx:id="pdfViewer" layoutX="160.0" layoutY="261.0" prefHeight="31.0" prefWidth="431.0" />
+      <Label layoutX="7.0" layoutY="269.0" text="pdf Viewer" />
+      <Label fx:id="errorMessage" layoutX="158.0" layoutY="6.0" prefHeight="29.0" prefWidth="431.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="7.0" layoutY="301.0" text="Verbose" />
+      <CheckBox fx:id="cbVerbose" contentDisplay="GRAPHIC_ONLY" layoutX="160.0" layoutY="300.0" mnemonicParsing="false" text="CheckBox" AnchorPane.leftAnchor="160.0" />
+   </children>
+</AnchorPane>

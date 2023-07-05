@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3912061e-322e-4fb9-bead-1a3a9dcbd3cc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/MainClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/AscFamilyTreeViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/DescFamilyTreeViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/DetailViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/DocumentViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/ExportViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/FamilyViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/FinderViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/PersonViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/PreferenceViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/controllers/RootLayoutController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/genTree/AscGenoType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/genTree/Child.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/genTree/DescGenoType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/genTree/Parent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/genTree/Spouse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/genTree/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/model/D_Parameters.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/model/Document.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/model/Family.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/model/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/printing/Index.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/printing/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/printing/TreePrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/printing/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/Branch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/DropLabel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/FamGender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/GRecord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/GcUnit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/Member.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/Relative.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/Source.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/structures/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/utilities/CpBoolean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/utilities/CpString.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/utilities/Diagnostics.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/utilities/FSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/utilities/FStringProperty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/utilities/GConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/utilities/legal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/papaworx/cpro/utilities/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IconFemale.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IconMale.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MarriedF.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MarriedM.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/DocumentView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/FamilyView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/FinderView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/PersonView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/PreferenceView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/RootLayout.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/ascFamilyTreeView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/descFamilyTreeView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/detailView.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdfTag.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prefs.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="2Rl1CZBgRvOcWzjppZ2ernoOYc5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "papaMaster",
+    "last_opened_file_path": "/home/ralph/IdeaProjectsTemp/cpro/src/main/resources/com.papaworx.cpro",
+    "settings.editor.selected.configurable": "advanced.settings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3912061e-322e-4fb9-bead-1a3a9dcbd3cc" name="Changes" comment="" />
+      <created>1687809726929</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1687809726929</updated>
+      <workItem from="1687809728023" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
