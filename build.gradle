@@ -62,17 +62,17 @@ jlink {
 
         //un-comment appropriate installerType
 
-
+        /*
             installerType = "deb"
             imageOptions += ['--icon', 'src/main/resources/com.papaworx.cpro/chain.png']
             installerOptions += [
                 '--linux-deb-maintainer', 'ralph@papaworx.com'
             ]
-
+        */
 
         /*
             installerType = "msi"
-            imageOptions += ['--icon', 'src/main/resources/org/gsusers/gsmv/GS_MV.ico']
+            imageOptions += ['--icon', 'src/main/resources/com.papaworx.cpro/chain.ico']
             installerOptions += [
                 '--win-menu',
                 '--win-shortcut'
