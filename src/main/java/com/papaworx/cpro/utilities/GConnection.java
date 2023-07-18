@@ -44,8 +44,6 @@ public class GConnection {
 	public long time = 0;
 	private Stage primaryStage;
 
-	private MainClass myMain;
-
 	public GConnection(MainClass _mainApp, D_Parameters par, Stage _stage) {
 		mainApp = _mainApp;
 		primaryStage = _stage;
@@ -102,8 +100,7 @@ public class GConnection {
 				//Class.forName("org.mariadb.jdbc.Connection");
 				Con = DriverManager.getConnection(Par.getServer().getValue(), properties);
 			} catch (Exception e) {
-				myMain.showStackTrace("No connection", e);
-				myMain.preferences(e.getMessage());
+				mainApp.preferences("Message");
 			}
 		}
 	}

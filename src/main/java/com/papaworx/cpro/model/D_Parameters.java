@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView;
 
 import java.io.InputStream;
 import java.util.prefs.Preferences;
+import com.papaworx.cpro.MainClass;
+import java.util.prefs.Preferences;
 
 @SuppressWarnings("rawtypes")
 public class D_Parameters {
@@ -19,10 +21,12 @@ public class D_Parameters {
 	public StringProperty IMAGEVIEWER;
 	public StringProperty PDFVIEWER;
 	private Double scale = 1.0;
-	private final Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
-	private final Class myMain;
+	private  Preferences prefs;
+	private MainClass myMain;
 
-	public D_Parameters(Class _myMain) {
+	public D_Parameters(MainClass _myMain) {
+		myMain = _myMain;
+		prefs = myMain.getPrefs();
 		DB_URL = new SimpleStringProperty(prefs.get("DB_URL", "jdbc:mariadb://192.168.2.24:3306/ChainPro"));
 		USER = new SimpleStringProperty(prefs.get("USER", "Genealogist"));
 		PASS = new SimpleStringProperty(prefs.get("PASS", "A1AwI17zo3EMyPY;X"));
@@ -31,7 +35,6 @@ public class D_Parameters {
 		CUTOFF = new SimpleStringProperty(prefs.get("CUTOFF", "1950"));
 		IMAGEVIEWER = new SimpleStringProperty(prefs.get("IMAGEVIEWER", "eog"));
 		PDFVIEWER = new SimpleStringProperty(prefs.get("PDFVIEWER","evince"));
-		myMain = _myMain;
 	}
 	
 	public void setScale(Double s) {
@@ -93,7 +96,7 @@ public class D_Parameters {
 	public ImageView getIV (String name) {
 		InputStream is;
 		Image img = null;
-		is = myMain.getResourceAsStream("/com.papaworx.cpro/" + name);
+		is = myMain.getClass().getResourceAsStream("/com.papaworx.cpro/" + name);
 		try {
 			assert is != null;
 			img = new Image(is);

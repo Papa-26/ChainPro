@@ -89,7 +89,7 @@ public class RootLayoutController {
     private void initialize(){
         miExit.setOnAction((event) -> {mainApp.cleanExit();});
         miFindByID.setOnAction((event) -> {mainApp.findPerson("ID");});
-         miFindByName.setOnAction((event) -> {mainApp.findPerson("Name");});
+        miFindByName.setOnAction((event) -> {mainApp.findPerson("Name");});
         miFindByYear.setOnAction((event) -> {mainApp.findPerson("Year");});
         miFindByID.setOnAction((event) -> {mainApp.findPerson("ID");});
         miFindByPlace.setOnAction((event) -> {mainApp.findPerson("Place");});

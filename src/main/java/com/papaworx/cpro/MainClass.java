@@ -7,6 +7,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 import com.papaworx.cpro.utilities.DExporter;
 import javafx.application.Application;
@@ -69,19 +70,19 @@ public class MainClass extends Application {
     private String firstPersonID = null;
     private Boolean bAbort = false;
     private Boolean bVerbosity = false;
+    private Preferences prefs = Preferences.userNodeForPackage(this.getClass());
 
     @Override
     public void start(Stage stage) throws IOException {
-        System.out.println("Test");
         primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(MainClass.class.getResource("/com.papaworx.cpro/layouts/RootLayout.fxml"));
         rootLayout = fxmlLoader.load();
         RootLayoutController controller = fxmlLoader.getController();
         scene = new Scene(rootLayout);
-        primaryStage.setTitle("ChainPro_M");
+        primaryStage.setTitle("ChainPro_M 2.0.2");
         primaryStage.setScene(scene);
         controller.setMainApp(this);
-        par = new D_Parameters(MainClass.class);
+        par = new D_Parameters(this);
         g = new GConnection(this, par, primaryStage);
         g.Load();
         p = new Person(g, "FIRST");
@@ -732,4 +733,7 @@ public class MainClass extends Application {
     	dE = null;
     }
 
+    public Preferences getPrefs(){
+        return prefs;
+    }
 }

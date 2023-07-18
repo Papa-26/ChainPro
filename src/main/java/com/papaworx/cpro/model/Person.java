@@ -172,7 +172,6 @@ public class Person {
 			processItem(Holocaust);
 		}
 		Changed = false;
-		//bNew = false;
 	}
 	
 	public String getPersonID() {
