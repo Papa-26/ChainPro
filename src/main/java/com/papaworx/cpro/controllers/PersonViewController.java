@@ -16,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.awt.Desktop;
 
 public class PersonViewController {
 
@@ -269,7 +270,7 @@ public class PersonViewController {
 			    	picture.setImage(image);
 			    	break;
 		    	case "PDF":
-		    		placePDF();
+					placePDF();
 		    		break;
 		    	default:				//URL
 		    		mainApp.showBrowser(fn);
@@ -292,7 +293,7 @@ public class PersonViewController {
 			InputStream is = null;
 			Image img = null;
 			ClassLoader cl = Thread.currentThread().getContextClassLoader();
-			is = cl.getResourceAsStream("Resources/pdfTag.png");
+			is = mainApp.getClass().getResourceAsStream("/com.papaworx.cpro/pdfTag.png");
 			try {
 				img = new Image(is);
 		    	picture.setImage(img);

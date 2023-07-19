@@ -16,10 +16,11 @@ module com.papaworx.cpro {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires java.desktop;
 
     uses MainClass;
     uses RootLayoutController;
-     uses AscFamilyTreeViewController;
+    uses AscFamilyTreeViewController;
     uses DescFamilyTreeViewController;
     uses DetailViewController;
     uses DocumentViewController;

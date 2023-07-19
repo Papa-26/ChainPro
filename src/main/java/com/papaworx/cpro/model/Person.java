@@ -1,20 +1,17 @@
 package com.papaworx.cpro.model;
 
-import java.util.List;
-import java.util.stream.*;
-//import javax.swing.JOptionPane;
-
+import com.papaworx.cpro.structures.DropLabel;
+import com.papaworx.cpro.structures.GRecord;
+import com.papaworx.cpro.structures.Source;
+import com.papaworx.cpro.utilities.CpBoolean;
+import com.papaworx.cpro.utilities.CpString;
+import com.papaworx.cpro.utilities.GConnection;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import com.papaworx.cpro.structures.DropLabel;
-import com.papaworx.cpro.model.Document;
-import com.papaworx.cpro.structures.GRecord;
-import com.papaworx.cpro.structures.GRecord;
-import com.papaworx.cpro.utilities.CpString;
-import com.papaworx.cpro.utilities.CpBoolean;
-import com.papaworx.cpro.utilities.GConnection;
 
-import com.papaworx.cpro.structures.Source;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 public class Person {
@@ -31,14 +28,11 @@ public class Person {
 	public CpBoolean Holocaust;
 	private String depository;
 	private List <GRecord> rList;	// MainClass set for person
-	private Source s;
+	private final Source s;
 	private String nRoot;
 	private Boolean Changed = false;
-	private GConnection G;
-	private ObservableList<DropLabel> l;
-	//private Boolean bNew = false;
-	private StringBuilder sb = null;
-	
+	private final GConnection G;
+
 	/**
 	 *  Model class for person
 	 *  
@@ -58,7 +52,7 @@ public class Person {
 		G = g;
 	    s = new Source(G);
 		switch (root) {
-			case "NEW":
+			case "NEW" -> {
 				createBase();
 				personID.set("NEW");
 				nRoot = "NEW";
@@ -66,12 +60,9 @@ public class Person {
 				Changed = true;
 				//bNew = true;
 				return;
-			case "FIRST":
-				nRoot = g.getStartPerson();
-				break;
-			default:
-				nRoot=root;
-				break;	
+			}
+			case "FIRST" -> nRoot = g.getStartPerson();
+			default -> nRoot = root;
 		}
 		this.personID = new CpString(nRoot, "personID", this);
 		depository = g.getDeposit();
@@ -79,12 +70,11 @@ public class Person {
 	    rList = G.LoadSet(sql);	//load all individual data
 	    if(rList.isEmpty()){
 	    	createBase();
-	    	return;
-	    } else {
+		} else {
 	    	
 		    List <GRecord> filtered = rList.stream().filter(u -> u.gTag.equals("NAME")).collect(Collectors.toList());
-		    GRecord r = null;
-		    String[] names = null;
+		    GRecord r;
+		    String[] names;
 		    if(!filtered.isEmpty()){
 		    	r = filtered.get(0);
 		    	names = r.gValue.trim().split("/");
@@ -121,7 +111,7 @@ public class Person {
 		    
 		    // handle holocaust
 		    filtered = rList.stream().filter(u -> (u.gTag.equals("CAUS") && u.gValue.equals("HOLOCAUST"))).collect(Collectors.toList());
-		    Boolean bTest = filtered.isEmpty();
+		    boolean bTest = filtered.isEmpty();
 		    this.Holocaust = new CpBoolean(!bTest, "Holocaust", this);
 	    }
 	}
@@ -148,8 +138,8 @@ public class Person {
 	}
 
 	private String getString (String pattern) {
-	    l = s.getBio(personID.getValue());
-	    List <DropLabel> filtered = l.stream().filter(u -> u.getRoot().equals(pattern)).collect(Collectors.toList());
+		ObservableList<DropLabel> l = s.getBio(personID.getValue());
+	    List <DropLabel> filtered = l.stream().filter(u -> u.getRoot().equals(pattern)).toList();
 	    if (!filtered.isEmpty()) { 
 	    	DropLabel r = filtered.get(0);
 			return r.getText();
@@ -195,44 +185,32 @@ public class Person {
 	public String getBirthDate() {
 			return birthDate.get();
 	}
-	
-	public String getBirthPlace() {
-		return birthPlace.get();
-	}
-	
+
 	public String getBirth() {
 		String b = "";
 		
 		if (birthDate != null)
 			b = birthDate.get();
-		if ((birthPlace != null) && (birthPlace.get().trim() != ""))
-			if (b.trim() != "")
+		if ((birthPlace != null) && (!birthPlace.get().trim().equals("")))
+			if (!b.trim().equals(""))
 				b += "; " + birthPlace.get();
 			else
 				b = birthPlace.get();
-		if (b != "")
+		if (!Objects.equals(b, ""))
 			b = "b. " + b;
 		return b;
 	}
-	
-	public String getDeathDate() {
-		return deathDate.get();
-	}
-	
-	public String getDeathPlace() {
-		return deathPlace.get();
-	}
-	
+
 	public String getDeath() {
 		String d = "";
 		if (deathDate != null)
 			d = deathDate.get();
-		if ((deathPlace != null) && (deathPlace.get().trim() != ""))
-			if (d != "")
+		if ((deathPlace != null) && (!deathPlace.get().trim().equals("")))
+			if (!Objects.equals(d, ""))
 				d += "; " + deathPlace.get();
 			else
 				d = deathPlace.get();
-		if (d.trim() != "")
+		if (!d.trim().equals(""))
 			d = "d. " + d;
 		return d;
 	}
@@ -256,28 +234,20 @@ public class Person {
 	public ObservableList <DropLabel> getDocs() {
 		return s.getDocs(personID.getValue());
 	}
-	
-	public String getNote () {
-	    List <GRecord> filtered = rList.stream().filter(u -> u.gLevel.equals(1) && u.gTag.equals("NOTE")).collect(Collectors.toList());
-	    if (filtered.isEmpty())
-	    	return "";
-	    GRecord gNote = filtered.get(0);
-	    long parent = gNote.gID;
-	    return getNote(parent);
-	}
-	
+
 	public String getNote (long parent) {
-	    List <GRecord> lines = rList.stream().filter(u -> u.gParent.equals(parent)).collect(Collectors.toList());
+	    List <GRecord> lines = rList.stream().filter(u -> u.gParent.equals(parent)).toList();
 	    if (lines.isEmpty()) {
 	    	return "";
 	    }
-	    sb = new StringBuilder();
-	    Boolean bFirst = true;
+		//private Boolean bNew = false;
+		StringBuilder sb = new StringBuilder();
+	    boolean bFirst = true;
 	    for (GRecord g : lines) {
 	    	if ((g.gTag.equals("CONC")) || bFirst)
 	    		sb.append(g.gValue);
 	    	else if (g.gTag.equals("CONT"))
-	    		sb.append("\n     " + g.gValue);
+	    		sb.append("\n     ").append(g.gValue);
 	    	bFirst= false;
 	    }
 	    return sb.toString();
@@ -286,7 +256,7 @@ public class Person {
 	public Boolean isMale () {
 		if (rList == null)
 			return isMale.getValue();
-	    List <GRecord> filtered = rList.stream().filter(u -> u.gTag.equals("SEX")).collect(Collectors.toList());
+	    List <GRecord> filtered = rList.stream().filter(u -> u.gTag.equals("SEX")).toList();
 	    if (filtered.isEmpty())
 	    	return null;		//default female, if sex field missing
 	    else {
@@ -295,18 +265,9 @@ public class Person {
 	    	
 	}
 
-	public Boolean isHolocaust () {
-	    List <GRecord> filtered = rList.stream().filter(u -> u.gTag.equals("CAUS")).collect(Collectors.toList());
-	    if (filtered.isEmpty())
-	    	return false;
-	    else
-	    	return true;
-	}
-	
 	public String getPicture(long iDocRoot) {
-		long iDoc = iDocRoot;
 		String sFile = null;
-	    List <GRecord> filtered = rList.stream().filter(u -> u.gParent.equals(iDoc)).collect(Collectors.toList());
+	    List <GRecord> filtered = rList.stream().filter(u -> u.gParent.equals(iDocRoot)).toList();
 	    if (filtered.isEmpty()) {
 	    	//JOptionPane.showMessageDialog(null, "Empty Object");
 	    	Platform.exit();
@@ -320,7 +281,7 @@ public class Person {
 	}
 	
 	public String getCFamily() {
-	    List <GRecord> filtered = rList.stream().filter(u -> u.gTag.equals("FAMC")).collect(Collectors.toList());
+	    List <GRecord> filtered = rList.stream().filter(u -> u.gTag.equals("FAMC")).toList();
 		if (filtered.isEmpty())
 			return "nil";
 		else
@@ -329,38 +290,36 @@ public class Person {
 	
 	private void processItem (Object o) {
 		switch (o.getClass().getName()) {
-			case "Utilities.CpString":
-				CpString cs = (CpString)o;
-				if(cs.hasChanged()) {
+			case "Utilities.CpString" -> {
+				CpString cs = (CpString) o;
+				if (cs.hasChanged()) {
 					String sKey = cs.getName();
 					String sName = cs.getValue();
 					switch (sKey) {
-					case "firstName":
-					case "lastName":
-						if (firstName.getValue()!= null)
-							sName = firstName.getValue().trim();
-						if (lastName.getValue() != null)
-							sName += " /" + lastName.getValue().trim().toUpperCase() + "/";
-						sKey = "Name";
-						break;
-					case "birthDate":
-						G.dateObject(sName);
-						break;
-					default:
-						break;
+						case "firstName", "lastName" -> {
+							if (firstName.getValue() != null)
+								sName = firstName.getValue().trim();
+							if (lastName.getValue() != null)
+								sName += " /" + lastName.getValue().trim().toUpperCase() + "/";
+							sKey = "Name";
+						}
+						case "birthDate" -> G.dateObject(sName);
+						default -> {
+						}
 					}
-				G.saveString(sKey, sName);
-				cs.prime();          // reset the changed flag
-			} 
-				break;
-			case "Utilities.cpBoolean":
-				CpBoolean cb = (CpBoolean)o;
+					G.saveString(sKey, sName);
+					cs.prime();          // reset the changed flag
+				}
+			}
+			case "Utilities.cpBoolean" -> {
+				CpBoolean cb = (CpBoolean) o;
 				if (cb.hasChanged()) {
 					G.saveBoolean(cb.getName(), cb.getValue());
 					cb.prime();          // reset the changed flag
 				}
-				break;
-			default:
+			}
+			default -> {
+			}
 		}
 	}
 	
@@ -388,24 +347,17 @@ public class Person {
 		isMale.smudge();
 		Changed = true;
 	}
-	
-	public Boolean getGender()
-	{
-		return isMale.get();
-	}
-	
+
 	public void addFamily(String fRoot, String type) {
 		String sql = null;
-		String res = null;
+		String res;
 		if (type == null)
 			return;
-		switch(type) {
-			case "FAMS":
-				sql = "SELECT * FROM GEDCOM WHERE GC_ROOT_OBJECT = '" + nRoot + "' AND GC_TAG = '" + type + "' AND GC_VALUE = '" + fRoot + "';";
-				break;
-			case "FAMC":
-				sql = "SELECT * FROM GEDCOM WHERE GC_ROOT_OBJECT = '" + nRoot + "' AND GC_TAG = '" + type + "';";
-				break;
+		switch (type) {
+			case "FAMS" ->
+					sql = "SELECT * FROM GEDCOM WHERE GC_ROOT_OBJECT = '" + nRoot + "' AND GC_TAG = '" + type + "' AND GC_VALUE = '" + fRoot + "';";
+			case "FAMC" ->
+					sql = "SELECT * FROM GEDCOM WHERE GC_ROOT_OBJECT = '" + nRoot + "' AND GC_TAG = '" + type + "';";
 		}
 		res = G.getString(sql, "GC_NODE");
 		if (res == null) {
@@ -422,37 +374,29 @@ public class Person {
 	}
 	
 	public Document getDocument(long parent) {
-		long iDoc = parent;
 		String sForm = null;
 		String Title = null;
-		String Note = null;
+		String Note;
 		String File = null;
 		long fileParent = 0;
 		long noteParent = 0;
-	    List <GRecord> filtered = rList.stream().filter(u -> u.gParent.equals(iDoc)).collect(Collectors.toList());
+	    List <GRecord> filtered = rList.stream().filter(u -> u.gParent.equals(parent)).collect(Collectors.toList());
 	    if (filtered.isEmpty())
 	    	return null;
 		for ( GRecord r : filtered) {
 			switch (r.gTag) {
-				case "TITL":
-					Title = r.gValue;
-					break;
-				case "FILE":
-				case "URL":
+				case "TITL" -> Title = r.gValue;
+				case "FILE", "URL" -> {
 					fileParent = r.gID;
 					File = r.gValue;
-					break;
-				case "NOTE":
-					noteParent = r.gID;
-					break;
+				}
+				case "NOTE" -> noteParent = r.gID;
 			}
 		}
 		final long fp = fileParent;
 		filtered = rList.stream().filter(u -> u.gParent.equals(fp)).collect(Collectors.toList());
-		if (filtered.isEmpty())
-			sForm = null;
-		else {
-			for ( GRecord r : filtered) {
+		if (!filtered.isEmpty()) {
+				for ( GRecord r : filtered) {
 				if(r.gTag.equals("FORM"))
 					sForm = r.gValue;
 			}
@@ -463,19 +407,18 @@ public class Person {
 			Note = null;
 		else {
 		    StringBuilder sb = new StringBuilder();
-		    Boolean bFirst = true;
+		    boolean bFirst = true;
 		    for (GRecord g : filtered) {
 		    	if ((g.gTag.equals("CONC")) || bFirst)
 		    		sb.append(g.gValue);
 		    	else if (g.gTag.equals("CONT"))
-		    		sb.append("\n     " + g.gValue);
+		    		sb.append("\n     ").append(g.gValue);
 		    	bFirst= false;
 		    }
 		    Note = sb.toString();
 		}
-		
-		Document doc = new Document( G, Title, sForm, File, Note, false);
-		return doc;
+
+		return new Document( G, Title, sForm, File, Note, false);
 	}
 	
 	public String getDepository() {
