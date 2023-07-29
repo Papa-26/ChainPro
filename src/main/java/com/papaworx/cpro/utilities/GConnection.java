@@ -43,6 +43,8 @@ public class GConnection {
 	public D_Parameters Par;
 	public long time = 0;
 	private Stage primaryStage;
+	private Boolean bHasChanged = false;
+	private String[]sKeys;
 
 	public GConnection(MainClass _mainApp, D_Parameters par, Stage _stage) {
 		mainApp = _mainApp;
@@ -85,7 +87,15 @@ public class GConnection {
 		Dictionary.put("MediaFile", "FILE");
 		Dictionary.put("MediaForm", "FILE.FORM");
 		Dictionary.put("MediaNote", "NOTE");
-		//Dictionary.put(key, value);
+
+		sKeys = new String[7];
+		sKeys[0] = "GC_NODE";
+		sKeys[1] = "GC_PARENT";
+		sKeys[2] = "GC_ROOT_OBJECT";
+		sKeys[3] = "GC_LEVEL";
+		sKeys[4] = "GC_PRIMARY";
+		sKeys[5] = "GC_TAG";
+		sKeys[6] = "GC_VALUE";
 
 	  	pattern = Pattern.compile("[1|2][0-9]{3}");
 
@@ -766,6 +776,36 @@ public class GConnection {
 		return list;
 	}
 
+	public ArrayList<String> getRecords(String sql) {
+		ArrayList<String> list = new ArrayList<String>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		String item = null;
+		try {
+			stmt = Con.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				item = rs.getString(sKeys[0]);
+				for (int i = 0; i < 7; i++)
+					item += " " + rs.getString(sKeys[i]);
+				list.add(item);
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+
+		// Clean-up environment
+		try {
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			stmt = null;
+		}
+		return list;
+	}
+
+
 	public void deleteNodeTree (long parent) {
 		// deletes the whole descendant tree of a parent node
 		// very dangerous
@@ -909,5 +949,4 @@ public class GConnection {
 			e.printStackTrace();
 		}
 	}
-
 }

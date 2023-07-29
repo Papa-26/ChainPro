@@ -1,5 +1,6 @@
 package com.papaworx.cpro.controllers;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -7,6 +8,7 @@ import com.papaworx.cpro.MainClass;
 import com.papaworx.cpro.structures.DropLabel;
 import com.papaworx.cpro.utilities.GConnection;
 import com.papaworx.cpro.model.Person;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -200,6 +202,7 @@ public class PersonViewController {
 	    	});
 	    	
 	    	picture.setOnMouseClicked((event) -> handleImageClick());
+			setHandlers();
 	    }
 	    
 	    private void 	handleImageClick()
@@ -312,4 +315,20 @@ public class PersonViewController {
 	    	deathPlaceField.setText(null);
 	    	personIDField.setText(null);
 	    }
+
+	// Sense data change
+	private void setHandlers(){
+		personIDField.setOnKeyPressed(e -> { P.setChange(true);});
+		firstNameField.setOnKeyPressed(e -> { P.setChange(true);});
+		lastNameField.setOnKeyPressed(e -> { P.setChange(true);});
+		birthDateField.setOnKeyPressed(e -> { P.setChange(true);});
+		birthPlaceField.setOnKeyPressed(e -> { P.setChange(true);});
+		deathDateField.setOnKeyPressed(e -> { P.setChange(true);});
+		deathPlaceField.setOnKeyPressed(e -> { P.setChange(true);});
+		personIDField.setOnKeyPressed(e -> { P.setChange(true);});
+		note.setOnKeyPressed(e -> { P.setChange(true);});
+		maleButton.setOnMouseClicked(e -> { P.setChange(true);});
+		femaleButton.setOnMouseClicked(e -> { P.setChange(true);});
+		holocaustCheck.setOnMouseClicked(e -> { P.setChange(true);});
+	}
 }

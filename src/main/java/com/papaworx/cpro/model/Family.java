@@ -30,6 +30,8 @@ public class Family {
 	public FStringProperty separationPlace;
 	public FStringProperty divorceDate;
 	public FStringProperty divorcePlace;
+
+	private Boolean bChanged;
 	
 	public ArrayList<String> salChildren = null;
 	/**
@@ -175,12 +177,13 @@ public class Family {
 	    	fRemarks = new FStringProperty(sb.toString(), "fRemarks", this);
 	}
 
-	public void Change() {
-		Changed = true;
+
+	public Boolean hasChanged (){
+		return bChanged;
 	}
-	
-	public Boolean hasChanged() {
-		return Changed;
+
+	public void Change(Boolean b){
+		bChanged = b;
 	}
 	
 	public void complete() {

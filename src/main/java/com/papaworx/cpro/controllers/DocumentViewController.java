@@ -129,4 +129,7 @@ public class DocumentViewController {
     	}
     	
     }
+
+	//TODO set up change flag
+
 }

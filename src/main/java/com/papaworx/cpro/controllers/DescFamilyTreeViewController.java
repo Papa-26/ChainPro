@@ -61,5 +61,6 @@ public class DescFamilyTreeViewController {
     	mainApp.changePerson(personID);
     	close();
     }
-    
+
+	//TODO print DescFamilyTree
 }

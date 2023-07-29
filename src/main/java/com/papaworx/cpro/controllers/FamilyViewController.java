@@ -104,7 +104,8 @@ package com.papaworx.cpro.controllers;
 	    	}
     		close();
 	    }
-	    
+		//TODO set up change flag
+
 	}
 	
 

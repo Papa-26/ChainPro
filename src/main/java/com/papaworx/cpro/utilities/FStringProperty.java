@@ -22,7 +22,7 @@ public class FStringProperty extends StringProperty {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				// TODO Auto-generated method stub
 				changed = true;
-				Owner.Change();
+				Owner.Change(true);
 			}
 		});
 		changed = false;

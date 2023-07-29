@@ -23,7 +23,7 @@ public class CpBoolean extends BooleanProperty{
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				// TODO Auto-generated method stub
 				changed = true;
-				Owner.Change();
+				Owner.setChange(true);
 			}
 		});
 		changed = false;

@@ -30,8 +30,10 @@ public class Person {
 	private List <GRecord> rList;	// MainClass set for person
 	private final Source s;
 	private String nRoot;
-	private Boolean Changed = false;
+	//private Boolean Changed = false;
 	private final GConnection G;
+
+	private Boolean bChanged = false;
 
 	/**
 	 *  Model class for person
@@ -57,8 +59,6 @@ public class Person {
 				personID.set("NEW");
 				nRoot = "NEW";
 				personID.smudge();
-				Changed = true;
-				//bNew = true;
 				return;
 			}
 			case "FIRST" -> nRoot = g.getStartPerson();
@@ -129,14 +129,6 @@ public class Person {
 	    this.Holocaust = new CpBoolean(false, "Holocaust", this);
 	}
 	
-	public void Change() {
-		Changed = true;
-	}
-	
-	public Boolean hasChanged() {
-		return Changed;
-	}
-
 	private String getString (String pattern) {
 		ObservableList<DropLabel> l = s.getBio(personID.getValue());
 	    List <DropLabel> filtered = l.stream().filter(u -> u.getRoot().equals(pattern)).toList();
@@ -149,7 +141,7 @@ public class Person {
 	}
 	
 	public void completePerson () {
-		if(Changed) {
+		if(bChanged) {
 			G.setRoot(nRoot);
 			processItem(firstName);
 			processItem(lastName);
@@ -161,7 +153,6 @@ public class Person {
 			processItem(isMale);
 			processItem(Holocaust);
 		}
-		Changed = false;
 	}
 	
 	public String getPersonID() {
@@ -325,7 +316,6 @@ public class Person {
 	
 	public void addDocument(Document doc) {
 		doc.completeDocument(personID.getValue());
-		Changed = true;
 	}
 	
 	public void delete() {
@@ -345,7 +335,6 @@ public class Person {
 	public void setGender(Boolean sex) {
 		isMale.setValue(sex);
 		isMale.smudge();
-		Changed = true;
 	}
 
 	public void addFamily(String fRoot, String type) {
@@ -365,12 +354,10 @@ public class Person {
 			G.setRoot(nRoot);
 			G.saveString(type, fRoot);
 		}
-		Changed = true;
 	}
 	
 	public void setLastName (String ln) {
 		lastName.set(ln);
-		Changed = true;
 	}
 	
 	public Document getDocument(long parent) {
@@ -429,6 +416,13 @@ public class Person {
 	{
 		nRoot = _nRoot;
 		personID = new CpString("", _nRoot, this);
-		Changed = true;
+	}
+
+	public Boolean hasChanged (){
+		return bChanged;
+	}
+
+	public void setChange(Boolean b){
+		bChanged = b;
 	}
 }

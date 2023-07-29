@@ -108,4 +108,6 @@ public class PreferenceViewController {
     	mainApp.setVerbosity(bVerbose);
     	dialogStage.close();
     }
+
+	//TODO set up change flag
 }

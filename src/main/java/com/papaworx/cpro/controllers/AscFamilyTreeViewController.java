@@ -56,4 +56,6 @@ public class AscFamilyTreeViewController {
     public void close() {
     	dialogStage.close();
     }
+
+	//TODO print AskFamilyTree
 }

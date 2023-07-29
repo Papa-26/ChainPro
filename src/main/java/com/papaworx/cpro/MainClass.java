@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
-import com.papaworx.cpro.utilities.DExporter;
+import com.papaworx.cpro.printing.ExportGEDCOM;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -142,7 +142,7 @@ public class MainClass extends Application {
     }
 
     public void cleanExit() {
-        if ((p != null) && p.hasChanged()){
+        if ((p != null) && (p.hasChanged()) || ((f != null) && f.hasChanged())){
             Alert aBox = new Alert(AlertType.CONFIRMATION, "Do you want to save changes before exiting?");
             aBox.showAndWait().ifPresent(response -> {
                 if (response != ButtonType.OK)
@@ -261,9 +261,7 @@ public class MainClass extends Application {
 
     public void showBrowser (String _url)
     {
-        System.out.println("URL: " + _url);
         getHostServices().showDocument(_url);
-
     }
 
     public void showFamilyViewDialog(String f) {
@@ -305,7 +303,7 @@ public class MainClass extends Application {
         else						// this is an ordinary record update
         {
             if (p != null)
-                p.Change();
+                p.setChange(true);
             assert p != null;
             p.completePerson();
             if (f != null)
@@ -334,7 +332,7 @@ public class MainClass extends Application {
         {
             sPerson_ID_2 = g.getNextPersonID();
             p2.setRoot(sPerson_ID_2);
-            p2.Change();
+            p2.setChange(true);
         }
         // second: determine if new family ID has to be created. If yes, create it
         if (Objects.equals(familyRoot, "NEW"))
@@ -728,12 +726,13 @@ public class MainClass extends Application {
         }
     }
 
-     public void exportGEDCOM () {
-    	DExporter dE = new DExporter( g, p.getPersonID(), 1, 1); // initial dummy
-    	dE = null;
+     public void export () {
+       /* ExportGEDCOM exporter = new ExportGEDCOM(g, primaryStage, true, null);
+        exporter.dump();*/
     }
 
     public Preferences getPrefs(){
         return prefs;
     }
+
 }
