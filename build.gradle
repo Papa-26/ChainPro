@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'com.papaworx'
-version '2.0.2'
+version '2.3.0'
 
 repositories {
     mavenCentral()
@@ -31,18 +31,24 @@ application {
 }
 
 javafx {
-    version = '17.0.6'
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media']
+    version = '17.0.8'
+    modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.fxml', 'javafx.swing', 'javafx.base' ]
 }
 
 dependencies {
     implementation('org.controlsfx:controlsfx:11.1.2')
     implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
+    implementation 'com.github.liuyueyi.media:base-plugin:3.0.0'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-// https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.0'
+
+    // https://mvnrepository.com/artifact/org.openjfx/javafx-swing
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: '17.0.8'
+
 }
 
 test {

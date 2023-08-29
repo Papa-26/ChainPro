@@ -113,7 +113,7 @@ public class RootLayoutController {
         miTestParents.setOnAction((event) -> {handleDiagnostics();});
         miPrintAscending.setOnAction((event) -> {mainApp.printAscending();});
         miPrintDescending.setOnAction((event) -> {mainApp.printDescending();});
-        //miExportGEDCOM.setOnAction((event) -> {mainApp.export();});
+        miExportGEDCOM.setOnAction((event) -> {mainApp.export();});
     }
 
     public void setStage (Stage s) {

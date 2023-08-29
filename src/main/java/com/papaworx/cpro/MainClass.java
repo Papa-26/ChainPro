@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
-import com.papaworx.cpro.printing.ExportGEDCOM;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,6 +44,7 @@ import com.papaworx.cpro.structures.Relative;
 import com.papaworx.cpro.utilities.Diagnostics;
 import com.papaworx.cpro.printing.TreePrinter;
 import com.papaworx.cpro.printing.TreePrinter.treeType;
+import com.papaworx.cpro.printing.ExportGEDCOM;
 
 @SuppressWarnings("ClassEscapesDefinedScope")
 public class MainClass extends Application {
@@ -79,7 +79,7 @@ public class MainClass extends Application {
         rootLayout = fxmlLoader.load();
         RootLayoutController controller = fxmlLoader.getController();
         scene = new Scene(rootLayout);
-        primaryStage.setTitle("ChainPro_M 2.0.2");
+        primaryStage.setTitle("ChainPro_M 2.3.0");
         primaryStage.setScene(scene);
         controller.setMainApp(this);
         par = new D_Parameters(this);
@@ -727,8 +727,8 @@ public class MainClass extends Application {
     }
 
      public void export () {
-       /* ExportGEDCOM exporter = new ExportGEDCOM(g, primaryStage, true, null);
-        exporter.dump();*/
+       ExportGEDCOM exporter = new ExportGEDCOM(g, primaryStage, true, null);
+        exporter.dump();
     }
 
     public Preferences getPrefs(){

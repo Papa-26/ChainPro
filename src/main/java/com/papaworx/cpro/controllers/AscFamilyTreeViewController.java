@@ -5,9 +5,12 @@ import com.papaworx.cpro.genTree.Parent;
 import com.papaworx.cpro.genTree.AscGenoType;
 import com.papaworx.cpro.utilities.GConnection;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.image.WritableImage;
 import com.papaworx.cpro.model.D_Parameters;
 import com.papaworx.cpro.model.Person;
 
@@ -16,13 +19,14 @@ public class AscFamilyTreeViewController {
 	private MainClass mainApp;
 	private D_Parameters par;
 	private GConnection G;
+	private Parent root;
 
-	@FXML
-	private MenuItem miClose;
 
 	@FXML
 	private ScrollPane screen;
-	
+
+	@FXML
+	private Button miClose;
 	@FXML
 	public void initialize() {
     	// dummy
@@ -39,8 +43,8 @@ public class AscFamilyTreeViewController {
     	AscGenoType aGT = new AscGenoType(G, screen, par, false);
     	aGT.setController(this);
     	String rootID = p.getPersonID();
-    	Parent root = new Parent(rootID, 0, 0, aGT, null );
-    	miClose.setOnAction((event) -> close());
+		miClose.setOnAction((event) -> close());
+    	root = new Parent(rootID, 0, 0, aGT, null );
     	screen.setContent(root.getRoot());
     }
     
@@ -52,7 +56,7 @@ public class AscFamilyTreeViewController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
-    
+
     public void close() {
     	dialogStage.close();
     }

@@ -1,39 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="650.0" prefWidth="1003.0"
-            xmlns="http://javafx.com/javafx/8.0.65"
+<AnchorPane prefHeight="650.0" prefWidth="1003.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.papaworx.cpro.controllers.AscFamilyTreeViewController">
-   <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem fx:id="miClose" mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <ScrollPane fx:id="screen" layoutY="32.0" prefHeight="570.0" prefWidth="900.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
-   </children>
+    <Button fx:id="miClose" mnemonicParsing="false" text="Close"/>
+    <ScrollPane fx:id="screen" layoutY="32.0" prefHeight="570.0" prefWidth="900.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+        </AnchorPane>
+    </ScrollPane>
 </AnchorPane>
