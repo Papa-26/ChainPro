@@ -6,14 +6,10 @@ import com.papaworx.cpro.MainClass;
 import com.papaworx.cpro.utilities.GConnection;
 import com.papaworx.cpro.genTree.DescGenoType;
 import com.papaworx.cpro.model.Person;
-import javafx.scene.SnapshotParameters;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
 
@@ -23,7 +19,6 @@ public class DescFamilyTreeViewController {
 	private MainClass mainApp;
 	private D_Parameters par;
 	private GConnection G;
-	private Group root;
 
 	@FXML
 	private Button miClose;
@@ -31,7 +26,6 @@ public class DescFamilyTreeViewController {
 	@FXML
 	private ScrollPane screen;
 
-	@FXML private MenuItem miPrint;
 	@FXML
 	public void initialize() {
     	// dummy
@@ -48,7 +42,7 @@ public class DescFamilyTreeViewController {
     {
     	DescGenoType dGT = new DescGenoType(G, par, false);
     	dGT.setController(this);
-    	root = new Group();
+		Group root = new Group();
     	String rootID = p.getPersonID();
     	new Child(rootID, 0, dGT, root, 50, 20 );
     	miClose.setOnAction((event) -> close());

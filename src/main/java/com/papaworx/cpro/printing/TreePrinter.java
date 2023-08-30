@@ -39,7 +39,7 @@ public class TreePrinter {
     	String rootID = p.getPersonID();
 		switch (t) {
 			case ascend:				// constructs ascending node
-		    	aGT = new AscGenoType(G, n, par, true );
+		    	aGT = new AscGenoType(G, par, true );
 				job = PrinterJob.createPrinterJob();
 				if (job != null && job.showPrintDialog(null)){
 					if (job.showPageSetupDialog(null)) {
@@ -47,7 +47,7 @@ public class TreePrinter {
 						printHeight = pl.getPrintableHeight();
 						aGT.setPrintHeight(printHeight);
 						printWidth = pl.getPrintableWidth();
-						aGT.setPrintWidth(printWidth);
+						aGT.setPrintWidth();
 					}
 				}
 		    	aGT.setScale(0.5);

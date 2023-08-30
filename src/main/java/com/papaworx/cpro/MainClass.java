@@ -79,7 +79,7 @@ public class MainClass extends Application {
         rootLayout = fxmlLoader.load();
         RootLayoutController controller = fxmlLoader.getController();
         scene = new Scene(rootLayout);
-        primaryStage.setTitle("ChainPro_M 2.3.0");
+        primaryStage.setTitle("ChainPro_M 2.3.1");
         primaryStage.setScene(scene);
         controller.setMainApp(this);
         par = new D_Parameters(this);

@@ -13,7 +13,6 @@ module com.papaworx.cpro {
     requires java.sql;
     requires java.base;
     requires java.prefs;
-    requires javafx.swing;
     requires java.desktop;
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
@@ -59,5 +58,5 @@ module com.papaworx.cpro {
 
     exports com.papaworx.cpro;
     exports com.papaworx.cpro.controllers;
-    opens com.papaworx.cpro.controllers to javafx.fxml, javafx.graphics, javafx.base, javafx.swing, jdk.jfr;
+    opens com.papaworx.cpro.controllers to javafx.fxml, javafx.graphics, javafx.base;
 }

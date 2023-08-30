@@ -281,7 +281,7 @@ public class Person {
 	
 	private void processItem (Object o) {
 		switch (o.getClass().getName()) {
-			case "Utilities.CpString" -> {
+			case "com.papaworx.cpro.utilities.CpString" -> {
 				CpString cs = (CpString) o;
 				if (cs.hasChanged()) {
 					String sKey = cs.getName();
@@ -302,7 +302,7 @@ public class Person {
 					cs.prime();          // reset the changed flag
 				}
 			}
-			case "Utilities.cpBoolean" -> {
+			case "com.papaworx.cpro.utilities.cpBoolean" -> {
 				CpBoolean cb = (CpBoolean) o;
 				if (cb.hasChanged()) {
 					G.saveBoolean(cb.getName(), cb.getValue());

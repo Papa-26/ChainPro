@@ -1,46 +1,29 @@
 package com.papaworx.cpro.genTree;
 
-import com.papaworx.cpro.printing.Index;
-import com.papaworx.cpro.utilities.GConnection;
-import javafx.scene.Node;
-import javafx.scene.text.Font;
+import com.papaworx.cpro.controllers.AscFamilyTreeViewController;
 import com.papaworx.cpro.model.D_Parameters;
 import com.papaworx.cpro.model.Person;
-import com.papaworx.cpro.controllers.AscFamilyTreeViewController;
+import com.papaworx.cpro.printing.Index;
+import com.papaworx.cpro.utilities.GConnection;
+import javafx.scene.text.Font;
 
 public class AscGenoType {
-	private GConnection G;
-	private D_Parameters Par;
-	private Node SC;
-	private Double x_Offset = 50.0;
-	private Double y_Offset = 80.0;
-	private Double gap1 = 0.0;	// between anchor and graphic
-	private Double gap2 = 0.0;	// between graphic and text
-	private Double rootX = 50.0;
-	private Double rootY = 20.0;
-	private String fMale = "IconMale.gif";
-	private String fFemale = "IconFemale.gif";
+	private final GConnection G;
+	private final D_Parameters Par;
 	private AscFamilyTreeViewController ftvc = null;
-	private Font font = null;
-	private Font titleFont = null;
-	private Font footerFont = null;
+	private Font font;
+	private final Font titleFont;
+	private final Font footerFont;
 	private Double scale = 1.0;
-	private Double Overlap = 30.0;
-	private boolean bPrinter = false;
-	private Integer page = 0;
-	private Index index = null;
-	@SuppressWarnings("unused")
-	private double printWidth = 0;
-	@SuppressWarnings("unused")
-	private double printHeight = 0;
+	private final boolean bPrinter;
+	private final Index index;
 	private Integer itemsPerPage;
 	private double itemIncrement;
 	//private ascFamilyTreeViewController ftvc;
 	
-	public AscGenoType(GConnection g, Node sc, D_Parameters p, boolean bp) {
+	public AscGenoType(GConnection g, D_Parameters p, boolean bp) {
 		// dummy constructor
 		G = g;
-		SC = sc;
 		Par = p;
 		font = new Font(scale * 15.0);
 		titleFont = new Font(15.0);
@@ -63,41 +46,40 @@ public class AscGenoType {
 	}
 	
 	public Double getX_Offset () {
+		Double x_Offset = 50.0;
 		return x_Offset * scale;
 	}
-	
-	public Double getY_Offset () {
-		return y_Offset * scale;
-	}
-	
+
 	public Double getGap1() {
+		// between anchor and graphic
+		Double gap1 = 0.0;
 		return gap1 * scale;
 	}
 	
 	public Double getGap2() {
+		// between graphic and text
+		Double gap2 = 0.0;
 		return gap2 * scale;
 	}
 	
 	public Double getRootX() {
+		Double rootX = 50.0;
 		return rootX * scale;
 	}
 	
 	public Double getRootY() {
+		Double rootY = 20.0;
 		return rootY * scale;
 	}
 	
 	public String getFMale() {
-		return fMale;
+		return "IconMale.gif";
 	}
 	
 	public String getFFemale() {
-		return fFemale;
+		return "IconFemale.gif";
 	}
-	
-	public Node getScreen() {
-		return SC;
-	}
-	
+
 	public D_Parameters getParameters () {
 		return Par;
 	}
@@ -106,10 +88,6 @@ public class AscGenoType {
 		return ftvc;
 	}
 
-	public Double getScale() {
-		return scale;
-	}
-	
 	public Font getFont() {
 		return font;
 	}
@@ -121,32 +99,23 @@ public class AscGenoType {
 	public Font getFooterFont() {
 		return footerFont;
 	}
-	
-	public Double getOverlap() {
-		return Overlap;
-	}
-	
+
 	public boolean getPrintFlag() {
 		return bPrinter;
 	}
 	
 	public double getY(Integer m) {
-		Integer n = m + 1;
-		page = n / itemsPerPage;
-		double result = n * itemIncrement + page * 54 + 10;
-		return result;
+		int n = m + 1;
+		int page = n / itemsPerPage;
+		return n * itemIncrement + page * 54 + 10;
 	}
-	
-	public Integer getPage() {
-		return page + 1;
-	}
-	
+
 	public void addToIndex (String name, Integer l) {
 		Integer p = (l + 1)/itemsPerPage + 1;
-		Integer ll = (l + 1) % itemsPerPage + 1;
+		int ll = (l + 1) % itemsPerPage + 1;
 		if (p.equals(1))
 			ll--;
-		index.addItem(name, "page " + p.toString() + " - " + ll.toString());
+		index.addItem(name, "page " + p + " - " + ll);
 	}
 	
 	public Object[] sIndex() {
@@ -154,13 +123,11 @@ public class AscGenoType {
 	}
 	
 	public void setPrintHeight(double h) {
-		printHeight = h;
 		itemsPerPage = (int)(h - 54) / 42;
 		itemIncrement = (h - 54)/itemsPerPage;
 	}
 	
-	public void setPrintWidth (double w) {
-		printWidth = w;
+	public void setPrintWidth () {
 	}
 	
 	public String getBio(Person p) {
