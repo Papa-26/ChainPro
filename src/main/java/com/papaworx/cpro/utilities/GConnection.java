@@ -9,6 +9,7 @@ import com.papaworx.cpro.structures.DropLabel;
 import com.papaworx.cpro.structures.FamGender;
 import com.papaworx.cpro.structures.GRecord;
 import com.papaworx.cpro.structures.GcUnit;
+import com.papaworx.cpro.utilities.Paragraph;
 import com.papaworx.cpro.model.D_Parameters;
 import com.papaworx.cpro.controllers.PreferenceViewController;
 import javafx.scene.control.Alert;
@@ -190,16 +191,16 @@ public class GConnection {
 			if (node <=0) {
 				// node does not exist and has to be created
 				node = getNextNode();
-				sql = "INSERT INTO GEDCOM (GC_NODE, GC_PARENT, GC_ROOT_OBJECT, GC_LEVEL, GC_PRIMARY, GC_TAG) ";
+				sql = "INSERT INTO GEDCOM (GC_NODE, GC_PARENT, GC_ROOT_OBJECT, GC_LEVEL, GC_PRIMARY, GC_TAG, GC_VALUE) ";
 				sql += "VALUE(" + node + ", " + parent + ", '" + Root + "', " + stepCount + ", " + 0;
-				sql += ", '" + step + "');";
+				sql += ", '" + step + "', NULL);";
 				executeSQL(sql);
 			}	// else, just carry on
 			lastStep = step;
 			stepCount++;
 		}
 		if (lastStep.equals("NOTE")) {		// note has changed
-			storeNote(node, Root, stepCount, value);
+			storeNote(node, stepCount, value);
 		} else {						// anything but note has changed
 			sql = "UPDATE GEDCOM SET GC_VALUE = '" + value + "' WHERE GC_NODE = " + node + ";";
 			executeSQL(sql);
@@ -224,7 +225,7 @@ public class GConnection {
 		sql += ", '" + path + "');";
 		executeSQL(sql);
 		if (key.equals("NOTE")) {		// note has changed
-			storeNote(node, Root, level, value);
+			storeNote(node, level, value);
 		} else {						// anything but note has changed
 			sql = "UPDATE GEDCOM SET GC_VALUE = '" + value + "' WHERE GC_NODE = " + node + ";";
 			executeSQL(sql);
@@ -233,6 +234,11 @@ public class GConnection {
 	}
 
 	public long getNode(String sql, String key) {
+		/*
+			allowed keys:
+			"GC_NODE" to get current node;
+			"GC_PARENT" to get parent node.
+		 */
 		ResultSet rs = null;
 		Statement stmt = null;
 		long node = -1;
@@ -319,7 +325,33 @@ public class GConnection {
 	    return lifo;
 	}
 
-	public void storeNote(long parent, String root, Integer level, String prose) {
+	public void storeNote(long lNode, Integer level, String prose) {
+		int parent = 0;
+		String sTag1 = "CONT";
+		String sTag2 = "CONC";
+		String sTag = sTag1;
+		String sLine = null;
+		int iLines = 0;
+		Statement stmnt = null;
+		ResultSet rs = null;
+
+		nodes = getNodeStack(lNode, false);	// save old nodes
+		deleteNodeTree(lNode);
+
+		String[] sParagraphs = prose.split("\n");
+		int iParaCount = sParagraphs.length;
+		for (String s : sParagraphs){
+			Paragraph Splitter = new Paragraph(s);
+			iLines = Splitter.getNumberLines();
+			for (int i = 0; i < iLines; i++) {
+				sLine = Splitter.getLine(i);
+				saveLine(lNode, sTag,  level, sLine);
+				sTag = sTag2;
+			}
+			sTag = sTag1;
+		}
+	}
+	public void storeNote2(long parent, String root, Integer level, String prose) {
 		//System.out.println("Note: " + prose);
 		String tLine;
 		String[] lines = prose.split("\n");
@@ -341,7 +373,7 @@ public class GConnection {
 				if (iUpper >iLength)
 					iUpper = iLength;
 				tLine = line.substring(iPointer, iUpper);
-				saveLine(parent,tag,  level, tLine);
+				saveLine( parent,tag,  level, tLine);
 				iPointer += 64;
 				tag = "CONC";
 			}
@@ -360,22 +392,23 @@ public class GConnection {
 	}
 
     private void saveLine(long parent, String tag, Integer level, String value) {
-    	// The parent is the node of the 'NOTE' line
-    	// text in value is cleaned up (quotations) (starting with either a 'CONT' line)
-    	// if necessary broken up into maximum 64 char chunks with 'CONC' tag
-    	String sql;
-    	long node;
-		if (!nodes.empty()) {
-			node = (long)nodes.pop();
-			sql = "UPDATE GEDCOM SET GC_VALUE = '" + value + "', GC_TAG = '" + tag + "' WHERE GC_NODE = " + node + ";";
-			executeSQL(sql);
-		}
-		else {
+		// The parent is the node of the 'NOTE' line
+		// text in value is cleaned up (quotations) (starting with either a 'CONT' line)
+		// if necessary broken up into maximum 64 char chunks with 'CONC' tag
+		String sql;
+		long node;
+		if (!nodes.empty())
+			node = (long) nodes.pop();
+		else
 			node = getNextNode();
+		if (value == null){
+			sql = "INSERT INTO GEDCOM (GC_NODE, GC_PARENT, GC_ROOT_OBJECT, GC_LEVEL, GC_PRIMARY, GC_TAG)";
+			sql += " VALUES(" + node + ", " + parent + ", '" + Root + "', " + level + ", 0, '" + tag + "');";
+		} else {
 			sql = "INSERT INTO GEDCOM (GC_NODE, GC_PARENT, GC_ROOT_OBJECT, GC_LEVEL, GC_PRIMARY, GC_TAG, GC_VALUE)";
 			sql += " VALUES(" + node + ", " + parent + ", '" + Root + "', " + level + ", 0, '" + tag + "', '" + value + "');";
-			executeSQL(sql);
 		}
+		executeSQL(sql);
     }
 
 	public List <GRecord> 	LoadSet (String sql) {
@@ -816,7 +849,7 @@ public class GConnection {
 	    	 return;
 		});
 		deleteBranch(parent);
-		sql = "DELETE FROM GEDCOM WHERE GC_NODE = " + parent + ";";
+		sql = "DELETE FROM GEDCOM WHERE GC_PARENT = " + parent + ";";
 		executeSQL(sql);
 	}
 

@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'com.papaworx'
-version '2.3.1'
+version '2.3.2'
 
 repositories {
     mavenCentral()
@@ -65,13 +65,13 @@ jlink {
 
         //un-comment appropriate installerType
 
-        /*
+
             installerType = "deb"
             imageOptions += ['--icon', 'src/main/resources/com.papaworx.cpro/chain.png']
             installerOptions += [
                 '--linux-deb-maintainer', 'ralph@papaworx.com'
             ]
-        */
+
 
         /*
             installerType = "msi"

@@ -187,7 +187,7 @@ public class Family {
 	}
 	
 	public void complete() {
-		if (Changed) {
+		if (bChanged) {
 			//System.out.println("Completing family " + fRoot);
 			G.setRoot(fRoot);
 			processItem(Spouse_a);

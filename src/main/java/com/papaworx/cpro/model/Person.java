@@ -295,8 +295,6 @@ public class Person {
 							sKey = "Name";
 						}
 						case "birthDate" -> G.dateObject(sName);
-						default -> {
-						}
 					}
 					G.saveString(sKey, sName);
 					cs.prime();          // reset the changed flag
@@ -308,8 +306,6 @@ public class Person {
 					G.saveBoolean(cb.getName(), cb.getValue());
 					cb.prime();          // reset the changed flag
 				}
-			}
-			default -> {
 			}
 		}
 	}
