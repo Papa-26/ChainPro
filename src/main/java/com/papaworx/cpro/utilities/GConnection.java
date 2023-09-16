@@ -212,7 +212,7 @@ public class GConnection {
 		// saves string to GEDCOM
 		String path = Dictionary.get(key);
 		if(path==null)
-		System.out.println("Save error; key = " + key + ", Value = " + value);
+			System.out.println("Save error; key = " + key + ", Value = " + value);
 		long parent;
 		if (oNode == 0) {
 			sql = "SELECT GC_NODE FROM GEDCOM WHERE ((GC_ROOT_OBJECT = '" + Root + "') AND (GC_LEVEL = '" + 0 + "'));";
@@ -334,7 +334,11 @@ public class GConnection {
 		int iLines = 0;
 		Statement stmnt = null;
 		ResultSet rs = null;
-
+		GcUnit gu = getLine(lNode);
+		if(gu.value != null){	// NOTE value not empty
+			String sql = "UPDATE GEDCOM SET GC_VALUE = '' WHERE GC_NODE = " + lNode + ";";
+			executeSQL(sql);
+		}
 		nodes = getNodeStack(lNode, false);	// save old nodes
 		deleteNodeTree(lNode);
 
@@ -349,45 +353,6 @@ public class GConnection {
 				sTag = sTag2;
 			}
 			sTag = sTag1;
-		}
-	}
-	public void storeNote2(long parent, String root, Integer level, String prose) {
-		//System.out.println("Note: " + prose);
-		String tLine;
-		String[] lines = prose.split("\n");
-		String tag, regex, sql;
-		Integer iPointer, iLength, iUpper;
-		long node;
-		nodes = getNodeStack(parent, false);
-		setRoot(root);
-		for (String line : lines) {
-			line = line.replaceAll("\r", "");
-			regex = "['\"\\\\]";
-			line = line.replaceAll("^\\s+", "");
-			line = line.replaceAll(regex, "`");
-			iLength = line.length();
-			tag = "CONT";
-			iPointer = 0;
-			while (iPointer < iLength) {
-				iUpper = iPointer + 64;
-				if (iUpper >iLength)
-					iUpper = iLength;
-				tLine = line.substring(iPointer, iUpper);
-				saveLine( parent,tag,  level, tLine);
-				iPointer += 64;
-				tag = "CONC";
-			}
-		}
-		// no we have to clean up unused note nodes
-		while (!nodes.empty()) {
-			node = (long)nodes.pop();
-			sql = "DELETE FROM GEDCOM WHERE GC_NODE = " + node + ";";
-			executeSQL(sql);
-		}
-
-		if (prose.equals("")){
-			sql = "DELETE FROM GEDCOM WHERE GC_NODE = " + parent + ";";
-			executeSQL(sql);
 		}
 	}
 
@@ -926,15 +891,16 @@ public class GConnection {
 		Statement stmt = null;
 		ResultSet rs = null;
 		GcUnit result = new GcUnit();
-		String sql = "SELECT GC_LEVEL, GC_TAG, GC_VALUE FROM GEDCOM WHERE GC_NODE = " + node.toString() + ";";
+		String sql = "SELECT GC_PARENT, GC_LEVEL, GC_TAG, GC_VALUE FROM GEDCOM WHERE GC_NODE = " + node.toString() + ";";
 		try {
 		    stmt = Con.createStatement();
 		    rs = stmt.executeQuery(sql);
 		    while (rs.next()) {
+				result.parent = rs.getLong("GC_PARENT");
 		    	  result.level = rs.getInt("GC_LEVEL");
 		    	  result.tag = rs.getString("GC_TAG");
 		    	  result.value = rs.getString("GC_VALUE");
-		      }
+		    }
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
