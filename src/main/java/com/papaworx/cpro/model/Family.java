@@ -30,9 +30,7 @@ public class Family {
 	public FStringProperty separationPlace;
 	public FStringProperty divorceDate;
 	public FStringProperty divorcePlace;
-
 	private Boolean bChanged;
-	
 	public ArrayList<String> salChildren = null;
 	/**
 	 * 	we had a long discussion, how to handle the whole issue of modern families
@@ -45,8 +43,6 @@ public class Family {
 	private List <GRecord> rList;	// MainClass set for family
 	private FSource s;
 	private GConnection G;
-	private Boolean Changed = false;
-	//private Boolean bNew = false;
 	private String fRoot = null;
 	
 	/**
@@ -59,7 +55,7 @@ public class Family {
 	    createBase();
 	    if ((famID != null) && famID.equals("NEW")) {
 	    	IDField = new FStringProperty("New", "famID", this);
-	    	Changed = true;
+	    	bChanged = true;
 	    	//bNew = true;
 	    }
 	    else
@@ -95,7 +91,7 @@ public class Family {
 			    	default:
 		    	}
 	    }
-	    Changed = false;
+	    bChanged = false;
 	}
 	
 	private void doEvent(String event, long parent) {
@@ -156,7 +152,7 @@ public class Family {
 			sSpouse_a = _sPersonID;
 		else
 			sSpouse_b = _sPersonID;
-		Changed = true;
+		bChanged = true;
 		return true;
 	}
 	
@@ -202,7 +198,7 @@ public class Family {
 			processItem(divorceDate);
 			processItem(divorcePlace);
 		}
-		Changed = false;
+		bChanged = false;
 		//bNew = false;
 	}
 	
@@ -235,7 +231,7 @@ public class Family {
 	}
 	
 	public void addPerson (String pRoot, String type) {
-		Changed = true;
+		bChanged = true;
 		String sql = null;
 		String res = null;
 		if (type == null)

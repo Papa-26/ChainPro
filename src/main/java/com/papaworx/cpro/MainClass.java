@@ -79,7 +79,7 @@ public class MainClass extends Application {
         rootLayout = fxmlLoader.load();
         RootLayoutController controller = fxmlLoader.getController();
         scene = new Scene(rootLayout);
-        primaryStage.setTitle("ChainPro_M 2.3.4");
+        primaryStage.setTitle("ChainPro_M 2.3.5");
         primaryStage.setScene(scene);
         controller.setMainApp(this);
         par = new D_Parameters(this);
@@ -320,7 +320,7 @@ public class MainClass extends Application {
          * Persist new person and family connections.
          * i.e. 2 persons and 1 family has to be updated
          */
-        Family f;
+        Family f = null;
         String sPerson_ID_1 = null;
         if ( p != null)
             sPerson_ID_1 = p.getPersonID();
@@ -338,17 +338,22 @@ public class MainClass extends Application {
         if (Objects.equals(familyRoot, "NEW"))
         {
             sFamily_ID = g.getNextFamilyID();
-            f = new Family( g, sFamily_ID);
-            f.addPerson(sPerson_ID_1, type2);
-            p.addFamily(sFamily_ID, type1);
-
         } else
             sFamily_ID = familyRoot;
-        f = new Family(g, sFamily_ID);
+        f = new Family( g, sFamily_ID);
+        p2.addFamily(sFamily_ID, type1);
+        p.addFamily(sFamily_ID, type1);
+        p.setChange(true);
 
-        p2.addFamily(sFamily_ID, type3);
-        f.addPerson(sPerson_ID_2, type4);
-        f.complete();
+        if(sFamily_ID != null) {
+            //f = new Family(g, sFamily_ID);
+            f.addPerson(sPerson_ID_2, type4);
+            f.addPerson(sPerson_ID_1, type2);
+            p2.addFamily(sFamily_ID, type3);
+            p2.setChange(true);
+            f.complete();
+        }
+
         if (p != null)
             p.completePerson();
         p2.completePerson();
@@ -411,10 +416,10 @@ public class MainClass extends Application {
             dialogStage.close();
         }
     }
-    public void createRelative (Relative r, Boolean gender) {
+    public void createRelative (Relative r, Boolean _gender) {
         bExtend = true;
-        Boolean Gender2 = gender;			// gender of new person
-        gender = p.isMale();				// now gender of first person
+        Boolean Gender2 = _gender;			// gender of new person
+        Boolean gender = p.isMale();				// now gender of first person
         String secondPersonID = null;
         String label;
         // Roles:
@@ -423,7 +428,7 @@ public class MainClass extends Application {
         type3 = null;	// p2 in p2
         type4 = null;	// p2 in f
 
-        DropLabel  r1;
+        DropLabel  r1 = null;
         familyRoot = null;
         p2 = null;		//set second person to null;
         f = null;		//set linking family to null
@@ -452,9 +457,6 @@ public class MainClass extends Application {
         else
             firstPersonID = p.getPersonID();
 
-        if(r.equals(Relative.SPOUSE)) {
-            Gender2 = !p.isMale();
-        }
         d = new DropLabel(null, "a new person.", "NEW");
         list.add(d);
         d = new DropLabel(null, "an existing person by Name.", "Name");
@@ -472,7 +474,7 @@ public class MainClass extends Application {
         if (r1.Extra.equals("NEW")) {
             // handle new person
             p2 = new Person(g, "NEW");
-            p2.setGender(Gender2);
+            p2.setGender(true);
         } else {
             // find existing person
             bShow = false;
@@ -541,6 +543,21 @@ public class MainClass extends Application {
             }
         }
 
+        switch(r){
+            case BROTHER, FATHER, SON:
+                p2.setGender(true);
+                break;
+            case SISTER, MOTHER, DAUGHTER:
+                p2.setGender(false);
+                break;
+            case SPOUSE:
+                p2.setGender(!p.isMale());
+                break;
+            default:
+                p2.setGender(true);
+                break;
+        }
+
         List<DropLabel> list1 = g.getFamilyMembers(firstPersonID, type1);
         List<DropLabel> list2 = g.getFamilyMembers(secondPersonID, type2);
         // join the two lists
@@ -577,13 +594,17 @@ public class MainClass extends Application {
         }
         personView.setDisable(false);
         bShow = true;
-        this.showPersonView(p2);
+        try {
+            this.showPersonView(p2);
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     private DropLabel getDetail(String label, ObservableList<DropLabel> options) {
         // Load the fxml file and create a new stage for the popup dialog.
-        try {
+         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainClass.class.getResource("layouts/detailView.fxml"));
+            loader.setLocation(MainClass.class.getResource("/com.papaworx.cpro/layouts/detailView.fxml"));
             AnchorPane page = loader.load();
 
             // Create the dialog Stage.

@@ -30,7 +30,6 @@ public class Person {
 	private List <GRecord> rList;	// MainClass set for person
 	private final Source s;
 	private String nRoot;
-	//private Boolean Changed = false;
 	private final GConnection G;
 
 	private Boolean bChanged = false;
@@ -59,6 +58,7 @@ public class Person {
 				personID.set("NEW");
 				nRoot = "NEW";
 				personID.smudge();
+				bChanged = true;
 				return;
 			}
 			case "FIRST" -> nRoot = g.getStartPerson();
@@ -278,8 +278,17 @@ public class Person {
 		else
 			return filtered.get(0).gValue;
 	}
-	
+
+	public String getSFamily() {
+		List <GRecord> filtered = rList.stream().filter(u -> u.gTag.equals("FAMS")).toList();
+		if (filtered.isEmpty())
+			return "nil";
+		else
+			return filtered.get(0).gValue;
+	}
+
 	private void processItem (Object o) {
+		String sProperty = o.getClass().getName();
 		switch (o.getClass().getName()) {
 			case "com.papaworx.cpro.utilities.CpString" -> {
 				CpString cs = (CpString) o;
@@ -300,7 +309,7 @@ public class Person {
 					cs.prime();          // reset the changed flag
 				}
 			}
-			case "com.papaworx.cpro.utilities.cpBoolean" -> {
+			case "com.papaworx.cpro.utilities.CpBoolean" -> {
 				CpBoolean cb = (CpBoolean) o;
 				if (cb.hasChanged()) {
 					G.saveBoolean(cb.getName(), cb.getValue());

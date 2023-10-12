@@ -26,7 +26,7 @@ public class CpBoolean extends BooleanProperty{
 				Owner.setChange(true);
 			}
 		});
-		changed = false;
+		//changed = false;
 		Name = name;
 	}
 	@Override

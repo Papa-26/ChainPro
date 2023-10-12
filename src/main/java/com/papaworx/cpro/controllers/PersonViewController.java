@@ -1,6 +1,5 @@
 package com.papaworx.cpro.controllers;
 
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -190,15 +189,21 @@ public class PersonViewController {
 	    	CFamButton.setOnAction((event) -> showFamily (FamForm.Parental, p.getCFamily()));
 	    	SFamButton.setOnAction((event) -> {
 	    		Integer n = spousesBox.getItems().size();
-	    		if ( n > 1){
-		    		bJumpOnSpouse = false;
-		    		spousesBox.setPromptText("Select Spousal Family");
-		    		bJumpOnSpouse = false;
-	    		}
-	    		else if (n == 1) {
-	    			DropLabel d = spousesBox.getItems().get(0);
-	    			showFamily (FamForm.Spousal, d.getExtra());
-	    		}
+				switch(n) {
+					case 0:
+						if (childrenBox.getItems().size() > 0)
+							showFamily(FamForm.Parental, p.getSFamily());
+						break;
+					case 1:
+						DropLabel d = spousesBox.getItems().get(0);
+						showFamily (FamForm.Spousal, d.getExtra());
+						break;
+					default:
+						bJumpOnSpouse = false;
+						spousesBox.setPromptText("Select Spousal Family");
+						bJumpOnSpouse = false;
+						break;
+				}
 	    	});
 	    	
 	    	picture.setOnMouseClicked((event) -> handleImageClick());
