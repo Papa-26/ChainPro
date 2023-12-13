@@ -79,7 +79,7 @@ public class MainClass extends Application {
         rootLayout = fxmlLoader.load();
         RootLayoutController controller = fxmlLoader.getController();
         scene = new Scene(rootLayout);
-        primaryStage.setTitle("ChainPro_M 2.3.5");
+        primaryStage.setTitle("ChainPro_M 2.3.6");
         primaryStage.setScene(scene);
         controller.setMainApp(this);
         par = new D_Parameters(this);
@@ -315,7 +315,7 @@ public class MainClass extends Application {
 
     public void completeEntry()
     {
-        /*
+        /**
          * complement to createRelative.
          * Persist new person and family connections.
          * i.e. 2 persons and 1 family has to be updated
@@ -325,43 +325,36 @@ public class MainClass extends Application {
         if ( p != null)
             sPerson_ID_1 = p.getPersonID();
         String sPerson_ID_2 = null;
-        String sFamily_ID ;
+        String sFamily_ID = null;
         bExtend = false;
         // first: determine if new person ID has to be created. If yes, create it
-        if (Objects.equals(p2.personID.get(), "NEW"))
+        if (p2.personID.get() == "NEW")
         {
             sPerson_ID_2 = g.getNextPersonID();
             p2.setRoot(sPerson_ID_2);
             p2.setChange(true);
         }
         // second: determine if new family ID has to be created. If yes, create it
-        if (Objects.equals(familyRoot, "NEW"))
+        if (familyRoot == "NEW")
         {
             sFamily_ID = g.getNextFamilyID();
+            f = new Family( g, sFamily_ID);
+            f.addPerson(sPerson_ID_1, type2);
+            p.addFamily(sFamily_ID, type1);
+
         } else
             sFamily_ID = familyRoot;
-        f = new Family( g, sFamily_ID);
-        p2.addFamily(sFamily_ID, type1);
-        p.addFamily(sFamily_ID, type1);
-        p.setChange(true);
+        f = new Family(g, sFamily_ID);
 
-        if(sFamily_ID != null) {
-            //f = new Family(g, sFamily_ID);
-            f.addPerson(sPerson_ID_2, type4);
-            f.addPerson(sPerson_ID_1, type2);
-            p2.addFamily(sFamily_ID, type3);
-            p2.setChange(true);
-            f.complete();
-        }
-
+        p2.addFamily(sFamily_ID, type3);
+        f.addPerson(p2.getPersonID(), type4);
+        f.complete();
         if (p != null)
             p.completePerson();
         p2.completePerson();
-        assert sPerson_ID_2 != null;
-        p = new Person(g, sPerson_ID_2);
         bShow = true;
         personView.setDisable(false);
-        showPersonView(p);
+        showPersonView(p2);
     }
 
     public void setNext (String nextPerson) {
@@ -417,9 +410,12 @@ public class MainClass extends Application {
         }
     }
     public void createRelative (Relative r, Boolean _gender) {
+        if(_gender == null)
+            _gender = !p.isMale();
+        Person pOriginal = p;
         bExtend = true;
         Boolean Gender2 = _gender;			// gender of new person
-        Boolean gender = p.isMale();				// now gender of first person
+        Boolean gender = pOriginal.isMale();				// now gender of first person
         String secondPersonID = null;
         String label;
         // Roles:
@@ -437,12 +433,13 @@ public class MainClass extends Application {
         ObservableList<DropLabel> options;
         bShow = false;
 
-        if (p.hasChanged()){
+        if (pOriginal.hasChanged()){
+
             Alert aBox = new Alert(AlertType.CONFIRMATION, "Do you want to save changes before continuing?");
             aBox.showAndWait().ifPresent(response -> {
                 if (response != ButtonType.OK)
                     return;
-                p.completePerson();
+                pOriginal.completePerson();
             });
         }
         if(r.equals(Relative.NONE)) {
@@ -455,7 +452,7 @@ public class MainClass extends Application {
             return;
         }
         else
-            firstPersonID = p.getPersonID();
+            firstPersonID = pOriginal.getPersonID();
 
         d = new DropLabel(null, "a new person.", "NEW");
         list.add(d);
@@ -543,19 +540,21 @@ public class MainClass extends Application {
             }
         }
 
-        switch(r){
-            case BROTHER, FATHER, SON:
-                p2.setGender(true);
-                break;
-            case SISTER, MOTHER, DAUGHTER:
-                p2.setGender(false);
-                break;
-            case SPOUSE:
-                p2.setGender(!p.isMale());
-                break;
-            default:
-                p2.setGender(true);
-                break;
+        if (r1 == null) {
+            switch (r) {
+                case BROTHER, FATHER, SON:
+                    p2.setGender(true);
+                    break;
+                case SISTER, MOTHER, DAUGHTER:
+                    p2.setGender(false);
+                    break;
+                case SPOUSE:
+                    p2.setGender(!p.isMale());
+                    break;
+                default:
+                    p2.setGender(true);
+                    break;
+            }
         }
 
         List<DropLabel> list1 = g.getFamilyMembers(firstPersonID, type1);
@@ -568,7 +567,7 @@ public class MainClass extends Application {
         else {
             List <DropLabel> filtered = list1.stream().filter(u -> u.Root.equals(firstPersonID)).toList();
             if (!filtered.isEmpty()) {
-                String fn = p.getFirstName();
+                String fn = pOriginal.getFirstName();
                 Alert aBox = new Alert(AlertType.INFORMATION, fn + " is already in that family!");
                 aBox.showAndWait().ifPresent(response -> {
                 });
@@ -590,7 +589,7 @@ public class MainClass extends Application {
             if (r1.Extra.equals("NONE"))
                 familyRoot = "NEW";
             else
-                familyRoot = r1.Root;
+                familyRoot = getRoot(p,  r);
         }
         personView.setDisable(false);
         bShow = true;
@@ -599,6 +598,8 @@ public class MainClass extends Application {
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
+        p = pOriginal;
+        update();
     }
     private DropLabel getDetail(String label, ObservableList<DropLabel> options) {
         // Load the fxml file and create a new stage for the popup dialog.
@@ -754,6 +755,27 @@ public class MainClass extends Application {
 
     public Preferences getPrefs(){
         return prefs;
+    }
+
+    private String getRoot (Person _p, Relative _r){
+        String sReturn = null;
+            switch (_r){
+                case NONE:
+                    sReturn = "NEW";
+                    break;
+                case BROTHER:
+                case SISTER:
+                case MOTHER:
+                case FATHER:
+                    sReturn = _p.getCFamily();
+                    break;
+                case SPOUSE:
+                case DAUGHTER:
+                case SON:
+                    sReturn = _p.getSFamily();
+                    break;
+            }
+            return sReturn;
     }
 
 }
