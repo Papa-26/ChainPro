@@ -97,6 +97,7 @@ public class MainClass extends Application {
 
 
     public String findPerson(String name) {
+        checkForChange();       //conditional update
         AnchorPane page = null;
         // Load the fxml file and create a new stage for the popup dialog.
         FXMLLoader loader = new FXMLLoader(MainClass.class.getResource("/com.papaworx.cpro/layouts/FinderView.fxml"));
@@ -235,9 +236,9 @@ public class MainClass extends Application {
         return par;
     }
 
-    public void showPersonView(Person p) {
+    public void showPersonView(Person _p) {
         // Load person overview.
-        currentPerson = p.getPersonID();
+        currentPerson = _p.getPersonID();
         FXMLLoader loader = new FXMLLoader(MainClass.class.getResource("/com.papaworx.cpro/layouts/PersonView.fxml"));
         try {
             personView = loader.load();
@@ -252,7 +253,7 @@ public class MainClass extends Application {
         PersonViewController controller = loader.getController();
         controller.clearFields();
         controller.setMainApp(this, g);
-         controller.showPerson(p);
+        controller.showPerson(_p);
     }
 
     public void setCursor(Cursor c) {
@@ -362,14 +363,7 @@ public class MainClass extends Application {
     }
 
     public void changePerson (String personID) {
-        if (p.hasChanged()){
-            Alert aBox = new Alert(AlertType.CONFIRMATION, "Are you sure you want to save changes?");
-            aBox.showAndWait().ifPresent(response -> {
-                if (response != ButtonType.OK)
-                    return;
-                p.completePerson();
-            });
-        }
+        checkForChange();   // conditional update
         Person p2 = new Person(g, personID);
         if (bShow) {
             p = p2;
@@ -777,5 +771,15 @@ public class MainClass extends Application {
             }
             return sReturn;
     }
-
+    private void checkForChange()    // conditional update
+    {
+        if ((p != null) && (p.hasChanged())) {
+            Alert aBox = new Alert(AlertType.CONFIRMATION, "Are you sure you want to save changes?");
+            aBox.showAndWait().ifPresent(response -> {
+                if (response != ButtonType.OK)
+                    return;
+                p.completePerson();
+            });
+        }
+    }
 }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="bg" prefHeight="680.0" prefWidth="1000.0"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.papaworx.cpro.controllers.RootLayoutController">
+<BorderPane fx:id="bg" prefHeight="680.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.papaworx.cpro.controllers.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -39,7 +37,6 @@
                <items>
                   <Menu mnemonicParsing="false" text="People">
                     <items>
-                        <MenuItem fx:id="miSavePerson" mnemonicParsing="false" text="Save Person" />
                         <MenuItem fx:id="miAddPerson" mnemonicParsing="false" text="Add Person" />
                         <MenuItem fx:id="miAddDaughter" mnemonicParsing="false" text="Add daughter" />
                         <MenuItem fx:id="miAddSon" mnemonicParsing="false" text="Add son" />

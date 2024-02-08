@@ -113,6 +113,7 @@ public class Person {
 		    filtered = rList.stream().filter(u -> (u.gTag.equals("CAUS") && u.gValue.equals("HOLOCAUST"))).collect(Collectors.toList());
 		    boolean bTest = filtered.isEmpty();
 		    this.Holocaust = new CpBoolean(!bTest, "Holocaust", this);
+			bChanged = false;
 	    }
 	}
 	

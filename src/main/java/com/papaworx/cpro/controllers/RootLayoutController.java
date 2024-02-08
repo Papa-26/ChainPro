@@ -30,8 +30,6 @@ public class RootLayoutController {
     @FXML
     private MenuItem miAddDocument;
     @FXML
-    private MenuItem miSavePerson;
-    @FXML
     private MenuItem miDeletePresent;
     @FXML
     private MenuItem miUnlinkPresent;
@@ -105,7 +103,6 @@ public class RootLayoutController {
         miAddSpouse.setOnAction((event) -> {mainApp.createRelative(Relative.SPOUSE, null);});
         miDeletePresent.setOnAction((event) -> {mainApp.deletePerson();});
         miUnlinkPresent.setOnAction((event) -> {mainApp.unlinkPerson();});
-        miSavePerson.setOnAction((event) -> {mainApp.completeEntry();});
         miService.setOnAction((event) -> {mainApp.preferences("");});
         miDescendingTree.setOnAction((event) -> {mainApp.showDescTree();});
         miAscendingTree.setOnAction((event) -> {mainApp.showAscTree();});

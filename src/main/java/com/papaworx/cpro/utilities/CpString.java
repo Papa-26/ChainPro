@@ -90,6 +90,7 @@ public class CpString extends StringProperty {
 	}
 
 	public Boolean hasChanged() {
+		this.Owner.hasChanged();
 		return changed;
 	}
 	

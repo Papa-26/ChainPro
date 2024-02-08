@@ -808,11 +808,11 @@ public class GConnection {
 		// deletes the whole descendant tree of a parent node
 		// very dangerous
 		String sql = null;
-		Alert aBox = new Alert(AlertType.CONFIRMATION, "Are you sure you want to proceed with the deletion?");
+		/*Alert aBox = new Alert(AlertType.CONFIRMATION, "Are you sure you want to proceed with the deletion?");
 		aBox.showAndWait().ifPresent(response -> {
 	     if (response != ButtonType.OK)
 	    	 return;
-		});
+		});*/
 		deleteBranch(parent);
 		sql = "DELETE FROM GEDCOM WHERE GC_PARENT = " + parent + ";";
 		executeSQL(sql);
