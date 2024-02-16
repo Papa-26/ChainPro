@@ -595,6 +595,7 @@ public class MainClass extends Application {
         p = pOriginal;
         update();
     }
+
     private DropLabel getDetail(String label, ObservableList<DropLabel> options) {
         // Load the fxml file and create a new stage for the popup dialog.
          try {
@@ -781,5 +782,9 @@ public class MainClass extends Application {
                 p.completePerson();
             });
         }
+    }
+
+    public void updatePerson(){
+        completeEntry();
     }
 }

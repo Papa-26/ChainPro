@@ -199,7 +199,6 @@ public class Family {
 			processItem(divorcePlace);
 		}
 		bChanged = false;
-		//bNew = false;
 	}
 	
 	private void processItem (Object o) {

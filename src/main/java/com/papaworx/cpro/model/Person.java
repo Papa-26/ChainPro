@@ -154,6 +154,7 @@ public class Person {
 			processItem(isMale);
 			processItem(Holocaust);
 		}
+		bChanged = false;		// reset changed flag
 	}
 	
 	public String getPersonID() {

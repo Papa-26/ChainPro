@@ -34,6 +34,8 @@ public class RootLayoutController {
     @FXML
     private MenuItem miUnlinkPresent;
     @FXML
+    private MenuItem miUpdatePerson;
+    @FXML
     private MenuItem miAddPerson;
     @FXML
     private MenuItem miAddDaughter;
@@ -79,6 +81,7 @@ public class RootLayoutController {
     private Stage stage;
     private MainClass mainApp;
 
+
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
@@ -93,6 +96,7 @@ public class RootLayoutController {
         miFindByPlace.setOnAction((event) -> {mainApp.findPerson("Place");});
         miFindHolocaust.setOnAction((event) -> {mainApp.findPerson("Holocaust");});
         miAddDocument.setOnAction((event) -> {mainApp.addDocument();});
+        miUpdatePerson.setOnAction((event) -> {mainApp.updatePerson();});
         miAddPerson.setOnAction((event) -> {mainApp.createRelative(Relative.NONE, null);});
         miAddDaughter.setOnAction((event) -> {mainApp.createRelative(Relative.DAUGHTER, false);});
         miAddSon.setOnAction((event) -> {mainApp.createRelative(Relative.SON, true);});
