@@ -84,7 +84,7 @@ jlink {
 
         /*
             installerType = "dmg"
-            imageOptions += ['--icon', 'src/main/resources/org/gsusers/gsmv/GS_MV.icns']
+            imageOptions += ['--icon', 'src/main/resources/com.papaworx.cpro/ChainPro.icns']
         */
     }
 }
