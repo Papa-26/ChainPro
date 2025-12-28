@@ -56,7 +56,7 @@ module com.papaworx.cpro {
     uses FStringProperty;
     uses GConnection;
 
+    opens com.papaworx.cpro.controllers to javafx.fxml, javafx.graphics, javafx.base;
     exports com.papaworx.cpro;
     exports com.papaworx.cpro.controllers;
-    opens com.papaworx.cpro.controllers to javafx.fxml, javafx.graphics, javafx.base;
 }
